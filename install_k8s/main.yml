@@ -1,0 +1,37 @@
+- hosts: all
+  become: yes
+  user: root
+  gather_facts: no
+  pre_tasks:
+  - name: 'Atualizando repo'
+    raw: 'apt update && apt upgrade -y'
+  - name: 'Instalando Python/Dependencias'
+    raw: 'apt install -y python python3 curl'
+  - name: 'Disable swap'
+    raw: 'swapoff -a'
+  roles:
+  - { role: install-k8s, tags: ["install_k8s_role"] }
+
+- hosts: k8s-master
+  become: yes
+  user: root
+  roles:
+  - { role: create-cluster, tags: ["create_cluster_role"] }
+
+- hosts: k8s-workers
+  become: yes
+  user: root
+  roles:
+  - { role: join-workers, tags: ["join_workers_role"] }
+
+- hosts: k8s-master
+  become: yes
+  user: root
+  roles:
+  - { role: install-helm, tags: ["install_helm_role"] }
+
+- hosts: k8s-master
+  become: yes
+  user: root
+  roles:
+  - { role: install-monit-tools, tags: ["install_monit-tools_role"] }

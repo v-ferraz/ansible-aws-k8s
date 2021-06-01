@@ -1,0 +1,3 @@
+- hosts: local
+  roles:
+    - { role: criando-instancias, tags: ["deploy_ec2_aws"] }

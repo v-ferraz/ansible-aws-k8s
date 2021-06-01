@@ -1,0 +1,10 @@
+---
+# vars file for criando-instancias
+sec_group_name: giropops
+profile: giropops
+instance_type: t2.medium
+image: ami-0dba2cb6798deb6d8
+region: us-east-1
+keypair: MayKey
+cont: 3
+

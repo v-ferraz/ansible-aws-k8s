@@ -1,0 +1,4 @@
+---
+- name: Install Helm
+  shell:
+    cmd: curl -fsSL {{ url_helm }} | bash
